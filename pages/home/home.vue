@@ -1,5 +1,9 @@
 <template>
   <view class="home">
+    <!-- 搜索  -->
+    <view style="position: sticky; z-index: 999;top: 0;left: 0;">
+      <my-search @click="mysearch"></my-search>
+    </view>
     <!-- 轮播图 -->
     <swiper class="mySwiper" indicator-dots indicator-active-color="#fff" circular autoplay interval="2000"
       duration="200">
@@ -37,7 +41,9 @@
 </template>
 
 <script>
+  import myminxins from '@/mixins/myminxins.js'
   export default {
+    mixins: [myminxins],
     data() {
       return {
         swiperList: [],
@@ -46,6 +52,12 @@
       };
     },
     methods: {
+      // 点击搜索框
+      mysearch() {
+        uni.navigateTo({
+          url: '/pages/search/search'
+        })
+      },
       // 获取轮播图
       async getSwiperList() {
         let {

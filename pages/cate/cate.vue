@@ -1,6 +1,7 @@
 <template>
   <view class="cate">
     <!-- 搜索框 -->
+    <my-search></my-search>
     <!-- 分类 -->
     <view class="mycate">
       <scroll-view scroll-y="true" class="left" :style="{ height: `${wh}px` }">
@@ -17,7 +18,7 @@
               /<text>{{item.cat_name}}</text>/
             </view>
             <view class="thrice">
-              <view class="img" v-for="(img,num) in item.children" @click="toList(img.cat_name)">
+              <view class="img" v-for="(img,num) in item.children" @click="toList(img.cat_name)" :key="num">
                 <image :src="img.cat_icon" mode="widthFix"></image>
                 <view>{{img.cat_name}}</view>
               </view>
@@ -30,7 +31,9 @@
 </template>
 
 <script>
+  import myminxins from '@/mixins/myminxins.js'
   export default {
+    mixins: [myminxins],
     data() {
       return {
         // 分类区域的高度
@@ -69,7 +72,7 @@
       // 获取可使用区域高度
       uni.getSystemInfo({
           success: res => {
-            this.wh = res.windowHeight
+            this.wh = res.windowHeight - 60
           }
         }),
         this.getCateList()
